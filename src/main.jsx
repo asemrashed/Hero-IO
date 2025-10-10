@@ -15,7 +15,7 @@ import Details from "./pages/details/Details.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: () => fetch('allApp.json'),
+    loader: () => fetch('/allApp.json'),
     Component: Root,
     errorElement: <Error/>,
     children: [
@@ -35,7 +35,7 @@ const router = createBrowserRouter([
           {
             path: ':appId',
             loader: async ({ params }) => {
-              let response = await fetch('allApp.json')
+              let response = await fetch('/allApp.json')
               let data = await response.json()
               const appData = data.find(app => app.id === parseInt(params.appId) )
               if (!appData) {
