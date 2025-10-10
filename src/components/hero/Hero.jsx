@@ -2,6 +2,7 @@ import React from 'react';
 import play from '../../assets/play.png'
 import apple from '../../assets/apple.png'
 import hero from '../../assets/hero.png'
+import { Link } from 'react-router';
 
 const Hero = () => {
     const textColor = "bg-gradient-to-br from-[#632EE3] to-[#9F62F2] bg-clip-text text-transparent";
@@ -11,14 +12,14 @@ const Hero = () => {
                 <h1 className="text-4xl md:text-7xl font-bold"> We Build <br /> <span className={textColor}>Productive</span> Apps</h1>
                 <p className="text-md md:text-xl text-[#627382] w-full md:w-[70%]">At HERO.IO , we craft innovative apps designed to make everyday life simpler, smarter, and more exciting. Our goal is to turn your ideas into digital experiences that truly make an impact.</p>
                 <div className="flex gap-5">
-                    <button className='btn btn-sm md:btn-lg btn-ghost border-gray-300 hover:bg-gray-200 hover:text-black'>
+                    <Link to={'https://play.google.com/store/games?hl=en'} className='btn btn-sm md:btn-lg btn-ghost border-gray-300 hover:bg-gray-200 hover:text-black'>
                         <img src={play} alt="playStore" className='w-5 h-5 md:w-8 md:h-8' />
                         Google Play
-                    </button>
-                    <button className='btn btn-sm md:btn-lg btn-ghost border-gray-300 hover:bg-gray-200 hover:text-black'>
+                    </Link>
+                    <Link to={'https://www.apple.com/app-store/'} className='btn btn-sm md:btn-lg btn-ghost border-gray-300 hover:bg-gray-200 hover:text-black'>
                         <img src={apple} alt="appleStore" className='w-5 h-5 md:w-8 md:h-8'/>
                         App Store
-                    </button>
+                    </Link>
                 </div>
                 <div className="flex items-center justify-center w-full md:w-[70%]">
                     <img src={hero} alt="hero" />

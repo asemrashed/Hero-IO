@@ -57,10 +57,10 @@ export default function Navbar() {
           </ul>
         </div>
         <div className="navbar-end">
-          <button className="btn btn-sm md:btn-md md:px-6 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] border-0 hover:from-[#5328D1] hover:to-[#8A52D9] transition-all duration-200 text-white">
+          <Link to={'https://github.com/asemrashed'} className="btn btn-sm md:btn-md md:px-6 bg-gradient-to-br from-[#632EE3] to-[#9F62F2] border-0 hover:from-[#5328D1] hover:to-[#8A52D9] transition-all duration-200 text-white">
             <img src={git} alt="git" />
             Contribute
-          </button>
+          </Link>
         </div>
       </div>
     </div>

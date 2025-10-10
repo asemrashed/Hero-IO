@@ -13,7 +13,7 @@ const Applications = () => {
       </p>
       <div className="w-full flex items-center justify-between">
         <h1 className="flex-1 text-lg md:text-2xl font-bold text-gray-800">
-          (132) Apps Found
+          {appsData.length} Apps Found
         </h1>
         <div className="flex-1 flex justify-end">
           <label className="input bg-[#F1F5E8] border border-[#D2D2D2]">

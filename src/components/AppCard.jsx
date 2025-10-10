@@ -8,7 +8,7 @@ const AppCard = ({app}) => {
 
   return (
     <div
-      onClick={() => navigate(`${app.id}`)}
+      onClick={() => navigate(`/apps/${app.id}`)}
       className="flex flex-col justify-between gap-5 rounded-lg bg-white p-3 cursor-pointer hover:translate-y-[-5px] duration-200"
     >
       <div className="flex items-center justify-center h-[166px]">

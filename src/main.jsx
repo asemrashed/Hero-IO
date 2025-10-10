@@ -52,6 +52,10 @@ const router = createBrowserRouter([
         path: "installation",
         Component: Installed,
       },
+      {
+        path: '*',
+        Component: Error
+      }
     ],
   }
 ]);
