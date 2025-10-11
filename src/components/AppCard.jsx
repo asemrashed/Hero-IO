@@ -1,7 +1,7 @@
 import React from "react";
 import download from "../assets/icon-downloads.png";
 import star from "../assets/icon-ratings.png";
-import { Link, useNavigate } from "react-router";
+import { useNavigate } from "react-router";
 
 const AppCard = ({app}) => {
   const navigate = useNavigate()

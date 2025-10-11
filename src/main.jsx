@@ -10,7 +10,7 @@ import Applications from "./pages/apps/Applications.jsx";
 import Installed from "./pages/installed/Installed.jsx";
 import NotFound from "./pages/notFound/NotFound.jsx";
 import Layout from "./pages/apps/Layout.jsx";
-import Details from "./pages/details/Details.jsx";
+import DetailsLayout from "./pages/details/DetailsLayout.jsx";
 
 const router = createBrowserRouter([
   {
@@ -43,7 +43,7 @@ const router = createBrowserRouter([
               }
               return appData
             },
-            Component: Details,
+            Component: DetailsLayout,
             errorElement: <NotFound />
           }
         ]

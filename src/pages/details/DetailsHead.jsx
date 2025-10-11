@@ -1,9 +1,23 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import dwonload from "../../assets/icon-downloads.png";
 import star from "../../assets/icon-ratings.png";
 import review from "../../assets/icon-review.png";
+import { ThemeContext } from '../root/Root';
+import { ToastContainer, toast } from 'react-toastify'
+import { addToLocal }from '../../utils/localStorage';
 
-const DetailsHead = ({app}) => {
+const DetailsHead = ({ app }) => {
+  const { appsData, installedApp, setInstalledApp } = useContext(ThemeContext)
+  const installedLocally = installedApp.find(a => a.id === app.id)? true:false
+  const [installed, setInstall] = useState(installedLocally? true:false)
+  const handleInstall = (data) => {
+    if (!installed) {
+      setInstall(true)
+      setInstalledApp([...installedApp, data])
+      toast(`${data.title} Installing`)
+      addToLocal(data.id)
+    }
+  }
     return (
         <div className="flex flex-col md:flex-row items-center gap-3 md:gap-5">
           <div className="flex items-center justify-center bg-white w-2/3 md:w-1/4 min-h-[300px] rounded-md">
@@ -11,12 +25,12 @@ const DetailsHead = ({app}) => {
           </div>
           <div className="flex-grow flex flex-col justify-between gap-2 md:gap-4">
             <h2 className="text-xl md:text-3xl font-bold text-[#001931]">
-              {app.companyName}
+              {app.title}
             </h2>
             <p className="text-md md:text-xl text-gray-500">
               Developed by{" "}
               <span className="font-semibold text-[#9F62F2]">
-                productive.io
+                {app.companyName}
               </span>
             </p>
             <hr className="text-gray-300" />
@@ -58,11 +72,14 @@ const DetailsHead = ({app}) => {
               </div>
             </div>
             <div>
-              <button className="btn btn-sm md:btn-md md:px-6 border-0 text-white bg-[#00D390] hover:bg-[#06a06f]">
-                Install Now ({app.size}MB)
+              <button
+               onClick={()=> handleInstall(app)}
+               className={`btn  btn-sm md:btn-md md:px-6 border-0 text-white bg-${installed? 'gray-400':'[#00D390]'} cursor-${installed?'not-allowed':'pointer'} hover:bg-${installed?'gray-400':'[#06a06f]'}`}>
+                {!installed? `Install Now (${app.size}MB)`: 'Installed'}
               </button>
+              <ToastContainer />
             </div>
-          </div>
+        </div>
         </div>
     );
 };

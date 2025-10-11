@@ -3,7 +3,7 @@ import { useLoaderData } from "react-router";
 import DetailsHead from "./DetailsHead";
 import Chart from "./Chart";
 
-const Details = () => {
+const DetailsLayout = () => {
   const app = useLoaderData("");
   return (
     <div className="max-w-[1600px] mx-auto">
@@ -21,4 +21,4 @@ const Details = () => {
   );
 };
 
-export default Details;
+export default DetailsLayout;

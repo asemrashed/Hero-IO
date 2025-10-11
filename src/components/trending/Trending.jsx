@@ -1,9 +1,8 @@
 import React from "react";
 import AppCard from "../AppCard";
-import { useNavigate } from "react-router";
+import { Link } from "react-router";
 
 const Trending = ({ appsData }) => {
-  const navigate = useNavigate()
   const textColor = "bg-gradient-to-br from-[#632EE3] to-[#9F62F2]";
   return (
     <div className="w-full mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
@@ -16,12 +15,12 @@ const Trending = ({ appsData }) => {
           return <AppCard key={app.id} app={app}/>
         })}
       </div>
-      <button
-        onClick={()=> navigate('/apps')}
+      <Link
+        to={'/apps'}
         className={`btn btn-sm md:btn-md md:px-7 border-0 ${textColor} hover:from-[#5328D1] hover:to-[#8A52D9] transition-all duration-200`}
       >
         Show All
-      </button>
+      </Link>
     </div>
   );
 };

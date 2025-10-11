@@ -48,7 +48,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-2">
             <img src={logo} alt="logo" className="w-6 md:w-10 h-6 md:h-10" />
-            <a className={`text-base font-bold ${textColor}`}>HERO.IO</a>
+            <Link to={'/'} className={`text-base font-bold ${textColor}`}>HERO.IO</Link>
           </div>
         </div>
         <div className="navbar-center hidden lg:flex">
