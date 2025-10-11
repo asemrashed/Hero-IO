@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { Suspense, useContext, useState } from "react";
 import AppCard from "../../components/AppCard";
 import { ThemeContext } from "../root/Root";
 
@@ -7,8 +7,8 @@ const Applications = () => {
   const [search, setSearch] = useState("");
 
   const filteredApps = appsData.filter((app) =>
-      app.title.toLowerCase().includes(search.toLowerCase())
-    )
+    app.title.toLowerCase().includes(search.toLowerCase())
+  );
   return (
     <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
       <h2 className="text-2xl md:text-5xl font-bold">Our All Applications</h2>
@@ -16,7 +16,6 @@ const Applications = () => {
         Explore All Apps on the Market developed by us. We code for Millions
       </p>
 
-      {/* Search header */}
       <div className="w-full flex items-center justify-between">
         <h1 className="flex-1 text-lg md:text-2xl font-bold text-gray-800">
           {filteredApps.length} Apps Found
@@ -53,9 +52,11 @@ const Applications = () => {
 
       {filteredApps.length > 0 ? (
         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
-          {filteredApps.map((app) => (
-            <AppCard key={app.id} app={app} />
-          ))}
+          <Suspense fallback='<span className="loading loading-ball loading-xl"></span>'>
+            {filteredApps.map((app) => (
+              <AppCard key={app.id} app={app} />
+            ))}
+          </Suspense>
         </div>
       ) : (
         <div className="w-full flex flex-col items-center justify-center gap-3 text-center py-10 text-gray-500 text-xl md:text-4xl font-bold">
