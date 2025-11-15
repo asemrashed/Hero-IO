@@ -15,7 +15,6 @@ import DetailsLayout from "./pages/details/DetailsLayout.jsx";
 const router = createBrowserRouter([
   {
     path: "/",
-    loader: () => fetch('/allApp.json'),
     Component: Root,
     errorElement: <Error/>,
     children: [

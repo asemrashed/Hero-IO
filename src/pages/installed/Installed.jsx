@@ -3,15 +3,18 @@ import { ToastContainer, toast } from "react-toastify";
 import { removeFromLocal } from "../../utils/localStorage";
 import InstalledCard from "../../components/InstalledCard";
 import { getLocalData } from "../../utils/localStorage";
+import Loader from "../../components/loader/Loader";
 
 const Installed = () => {
-  const [installedIds, setInstalledIds] = useState([]);     // only IDs
-  const [installedApps, setInstalledApps] = useState([]);   // fetched app data
-console.log('installedApps', installedApps);
+  const [installedIds, setInstalledIds] = useState([]);   
+  const [installedApps, setInstalledApps] = useState([]);   
+  const [loading, setLoading] = useState(false);
+
   useEffect(() => {
     const ids = getLocalData();    
     setInstalledIds(ids);
   }, []);
+
   useEffect(() => {
     if (installedIds.length === 0) {
       setInstalledApps([]);
@@ -20,14 +23,17 @@ console.log('installedApps', installedApps);
 
     const fetchApps = async () => {
       try {
+        setLoading(true);
         const results = await Promise.all(
           installedIds.map(id =>
             fetch(`${import.meta.env.VITE_SERVER_URL}/apps/${id}`).then(res => res.json())
           )
         );
         setInstalledApps(results);
+        setLoading(false);
       } catch (error) {
         console.log(error);
+        setLoading(false);
       }
     };
 
@@ -35,9 +41,10 @@ console.log('installedApps', installedApps);
   }, [installedIds]);   
 
   const handleUninstall = (app) => {
+    setLoading(true);
     const updatedIds = installedIds.filter(id => id !== app._id);
-
     setInstalledIds(updatedIds); 
+    setLoading(false);
     removeFromLocal(app._id);
     toast(`${app.title} Uninstalled`);
   };
@@ -49,6 +56,8 @@ console.log('installedApps', installedApps);
       setInstalledApps([...installedApps].sort((a, b) => b.rating - a.rating));
     }
   };
+
+  if(loading) return <Loader/>
 
   return (
     <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">

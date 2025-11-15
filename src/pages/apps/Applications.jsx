@@ -1,29 +1,35 @@
 import React, { Suspense, useState } from "react";
 import AppCard from "../../components/AppCard";
-import { ThemeContext } from "../root/Root";
 import { useEffect } from "react";
+import Loader from "../../components/loader/Loader";
 
 const Applications = () => {
   const [ search, setSearch] = useState("");
   const [ apps, setApps] = useState([]);
-  const [ totalApps, setTotalApps]= useState(0);
+  const [ totalAppsLength, setTotalAppsLength]= useState(0);
   const [ currentPage, setCurrentPage]= useState(0);
   const [ totalPages, setTotalPages]= useState(0);
   const [ sort, setSort] = useState('downloads')
   const [ order, setOrder] = useState('desc')
-  const limit= 12;
+  const [ loading, setLoading]= useState(false);
+  const   limit= 12;
+
   useEffect(()=>{
+    setLoading(true);
     fetch(`${import.meta.env.VITE_SERVER_URL}/apps?limit=${limit}&skip=${currentPage*limit}&sort=${sort}&order=${order}&search=${search}`)
       .then(res=>res.json())
       .then(data=>{
-        setTotalApps(data.totalApps);
+        setTotalAppsLength(data.totalApps);
         setApps(data.apps);
+        setTotalPages(Math.ceil(data.totalApps/limit));
+        setLoading(false);
       })
-      .catch(err=>console.log(err))
+      .catch(err=>{
+        setLoading(false);
+        console.log(err)
+      })
     
-    setTotalPages(Math.ceil(totalApps/limit));
-    
-  },[currentPage, totalApps, sort, order, search]);
+  },[currentPage, sort, order, search]);
 
   const handleSorting = (e) =>{
     const value = e.target.value;
@@ -31,9 +37,7 @@ const Applications = () => {
     setSort(getSort);
     setOrder(getOrder);
   }
-  // const filteredApps = apps.filter((app) =>
-  //   app.title.toLowerCase().includes(search.toLowerCase())
-  // );
+  if(loading) return <Loader/>
   return (
     <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
       <h2 className="text-2xl md:text-5xl font-bold">Our All Applications</h2>
@@ -43,7 +47,7 @@ const Applications = () => {
 
       <div className="w-full flex items-center justify-between">
         <h1 className="text-lg md:text-2xl font-bold text-gray-800">
-          {totalApps} Apps Found
+          {totalAppsLength} Apps Found
         </h1>
 
         <div className="min-w-70">

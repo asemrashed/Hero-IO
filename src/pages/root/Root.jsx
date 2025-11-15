@@ -1,6 +1,6 @@
 import React, { createContext, Suspense, useState } from "react";
 import Navbar from "../../components/header/Navbar";
-import { Outlet, useLoaderData } from "react-router";
+import { Outlet } from "react-router";
 import Footer from "../../components/footer/Footer";
 import { getLocalData } from "../../utils/localStorage";
 

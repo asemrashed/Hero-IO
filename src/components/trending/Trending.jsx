@@ -3,21 +3,27 @@ import AppCard from "../AppCard";
 import { Link } from "react-router";
 import { useEffect } from "react";
 import { useState } from "react";
+import Loader from "../loader/Loader";
 
 const Trending = () => {
   const [appsData, setAppsData] = useState([]);
+  const [loading, setLoading]= useState(false);
   useEffect(()=>{
     try{
+      setLoading(true);
       fetch(`${import.meta.env.VITE_SERVER_URL}/apps?limit=8&skip=0&sort=rating&order=desc`)
         .then(res=>res.json())
         .then(data=>{
           setAppsData(data.apps)
+          setLoading(false);
         })  
     }catch(err){
       console.log(err);
+      setLoading(false);
     }
   },[])
   const textColor = "bg-gradient-to-br from-[#632EE3] to-[#9F62F2]";
+  if(loading) return <Loader/>
   return (
     <div className="w-full mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
       <h2 className="text-2xl md:text-5xl font-bold">Trending Apps</h2>
