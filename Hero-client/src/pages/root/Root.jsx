@@ -7,13 +7,9 @@ import { getLocalData } from "../../utils/localStorage";
 export const ThemeContext = createContext("");
 
 const Root = () => {
-  const appsData = useLoaderData();
   const storedApp = getLocalData();
-  const storedAppData = storedApp
-    .map((appId) => appsData.find((app) => appId === app.id))
-    .filter((app) => app !== undefined);
-  const [installedApp, setInstalledApp] = useState(storedAppData);
-  const contextValue = { appsData, installedApp, setInstalledApp };
+  const [installedApp, setInstalledApp] = useState(storedApp || []);
+  const contextValue = { installedApp, setInstalledApp };
   return (
     <>
       <Navbar />

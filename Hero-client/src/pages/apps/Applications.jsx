@@ -13,7 +13,7 @@ const Applications = () => {
   const [ order, setOrder] = useState('desc')
   const limit= 12;
   useEffect(()=>{
-    fetch(`http://localhost:5000/apps?limit=${limit}&skip=${currentPage*limit}&sort=${sort}&order=${order}&search=${search}`)
+    fetch(`${import.meta.env.VITE_SERVER_URL}/apps?limit=${limit}&skip=${currentPage*limit}&sort=${sort}&order=${order}&search=${search}`)
       .then(res=>res.json())
       .then(data=>{
         setTotalApps(data.totalApps);

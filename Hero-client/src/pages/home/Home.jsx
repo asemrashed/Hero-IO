@@ -1,9 +1,7 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import Hero from '../../components/hero/Hero';
 import Review from '../../components/review/Review';
 import Trending from '../../components/trending/Trending';
-import { ThemeContext } from '../root/Root';
-// import { ThemeContext } from '../apps/Layout';
 
 const Home = () => {
     return (

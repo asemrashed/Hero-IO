@@ -1,27 +1,55 @@
-import React, { useContext } from "react";
-import { ThemeContext } from "../root/Root";
+import React, { useEffect, useState } from "react";
 import { ToastContainer, toast } from "react-toastify";
 import { removeFromLocal } from "../../utils/localStorage";
 import InstalledCard from "../../components/InstalledCard";
+import { getLocalData } from "../../utils/localStorage";
 
 const Installed = () => {
-  const { installedApp, setInstalledApp } = useContext(ThemeContext);
-  const handleUninstall = (data) => {
-    const filtered = installedApp.filter((app) => app.id !== data.id);
-    setInstalledApp(filtered);
-    removeFromLocal(data.id)
-    toast(`${data.title} Unstalling`);
-  };
-  const handleSort =(type)=>{
-    if(type === "Low-High"){
-        const sorted = [...installedApp].sort((a, b) => a.installed - b.installed);
-        setInstalledApp(sorted);
-    }else{
-        const sorted = [...installedApp].sort((a, b) => b.installed - a.installed);
-        setInstalledApp(sorted);
+  const [installedIds, setInstalledIds] = useState([]);     // only IDs
+  const [installedApps, setInstalledApps] = useState([]);   // fetched app data
+console.log('installedApps', installedApps);
+  useEffect(() => {
+    const ids = getLocalData();    
+    setInstalledIds(ids);
+  }, []);
+  useEffect(() => {
+    if (installedIds.length === 0) {
+      setInstalledApps([]);
+      return;
     }
-    
-  }
+
+    const fetchApps = async () => {
+      try {
+        const results = await Promise.all(
+          installedIds.map(id =>
+            fetch(`${import.meta.env.VITE_SERVER_URL}/apps/${id}`).then(res => res.json())
+          )
+        );
+        setInstalledApps(results);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchApps();
+  }, [installedIds]);   
+
+  const handleUninstall = (app) => {
+    const updatedIds = installedIds.filter(id => id !== app._id);
+
+    setInstalledIds(updatedIds); 
+    removeFromLocal(app._id);
+    toast(`${app.title} Uninstalled`);
+  };
+
+  const handleSort = (type) => {
+    if (type === "Low-High") {
+      setInstalledApps([...installedApps].sort((a, b) => a.rating - b.rating));
+    } else {
+      setInstalledApps([...installedApps].sort((a, b) => b.rating - a.rating));
+    }
+  };
+
   return (
     <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
       <h2 className="text-2xl md:text-5xl font-bold">Your Installed Apps</h2>
@@ -30,7 +58,7 @@ const Installed = () => {
       </p>
       <div className="w-full flex items-center justify-between">
         <h1 className="flex-1 text-lg md:text-2xl font-bold text-gray-800">
-          {installedApp.length} Apps Found
+          {installedApps.length} Apps Found
         </h1>
         <div className="flex-1 flex justify-end">
           <select
@@ -44,7 +72,7 @@ const Installed = () => {
         </div>
       </div>
       <div className="w-full flex flex-col gap-3 md:gap-4">
-        {installedApp.map((app) => <InstalledCard key={app.id} handleUninstall={handleUninstall} appData={app}/>)}
+        {installedApps.map((app) => <InstalledCard key={app._id} handleUninstall={handleUninstall} appData={app}/>)}
       </div>
       <ToastContainer />
     </div>

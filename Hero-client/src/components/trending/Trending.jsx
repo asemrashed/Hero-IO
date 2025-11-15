@@ -8,7 +8,7 @@ const Trending = () => {
   const [appsData, setAppsData] = useState([]);
   useEffect(()=>{
     try{
-      fetch('http://localhost:5000/apps?limit=8&skip=0&sort=rating&order=desc')
+      fetch(`${import.meta.env.VITE_SERVER_URL}/apps?limit=8&skip=0&sort=rating&order=desc`)
         .then(res=>res.json())
         .then(data=>{
           setAppsData(data.apps)

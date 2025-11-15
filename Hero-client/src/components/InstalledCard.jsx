@@ -5,7 +5,6 @@ import star from "../assets/icon-ratings.png";
 const InstalledCard = ({appData,handleUninstall}) => {
     return (
         <div
-              key={appData.id}
               className="w-full flex items-center justify-between p-2 md:p-4 rounded-lg bg-white"
             >
               <div className="w-full flex items-center gap-2 md:gap-4">
