@@ -7,7 +7,7 @@ import { ToastContainer, toast } from 'react-toastify'
 import { addToLocal }from '../../utils/localStorage';
 
 const DetailsHead = ({ app }) => {
-  const { appsData, installedApp, setInstalledApp } = useContext(ThemeContext)
+  const { installedApp, setInstalledApp } = useContext(ThemeContext)
   const installedLocally = installedApp.find(a => a.id === app.id)? true:false
   const [installed, setInstall] = useState(installedLocally? true:false)
   const handleInstall = (data) => {

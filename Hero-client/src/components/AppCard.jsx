@@ -8,7 +8,7 @@ const AppCard = ({app}) => {
 
   return (
     <div
-      onClick={() => navigate(`/apps/${app.id}`)}
+      onClick={() => navigate(`/apps/${app._id}`)}
       className="flex flex-col justify-between gap-5 rounded-lg bg-white p-3 cursor-pointer hover:translate-y-[-5px] duration-200"
     >
       <div className="flex items-center justify-center h-[166px]">
@@ -27,7 +27,7 @@ const AppCard = ({app}) => {
         <div className="flex items-center p-1 gap-1 bg-[#FFF0E1] rounded-md">
           <img src={star} alt="star" className="w-4" />
           <p className="text-sm md:text-md text-[#FF8811] font-semibold">
-            {app.ratingAvg}
+            {app.rating}
           </p>
         </div>
       </div>

@@ -1,8 +1,22 @@
 import React from "react";
 import AppCard from "../AppCard";
 import { Link } from "react-router";
+import { useEffect } from "react";
+import { useState } from "react";
 
-const Trending = ({ appsData }) => {
+const Trending = () => {
+  const [appsData, setAppsData] = useState([]);
+  useEffect(()=>{
+    try{
+      fetch('http://localhost:5000/apps?limit=8&skip=0&sort=rating&order=desc')
+        .then(res=>res.json())
+        .then(data=>{
+          setAppsData(data.apps)
+        })  
+    }catch(err){
+      console.log(err);
+    }
+  },[])
   const textColor = "bg-gradient-to-br from-[#632EE3] to-[#9F62F2]";
   return (
     <div className="w-full mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">

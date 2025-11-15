@@ -1,14 +1,39 @@
-import React, { Suspense, useContext, useState } from "react";
+import React, { Suspense, useState } from "react";
 import AppCard from "../../components/AppCard";
 import { ThemeContext } from "../root/Root";
+import { useEffect } from "react";
 
 const Applications = () => {
-  const { appsData } = useContext(ThemeContext);
-  const [search, setSearch] = useState("");
+  const [ search, setSearch] = useState("");
+  const [ apps, setApps] = useState([]);
+  const [ totalApps, setTotalApps]= useState(0);
+  const [ currentPage, setCurrentPage]= useState(0);
+  const [ totalPages, setTotalPages]= useState(0);
+  const [ sort, setSort] = useState('downloads')
+  const [ order, setOrder] = useState('desc')
+  const limit= 12;
+  useEffect(()=>{
+    fetch(`http://localhost:5000/apps?limit=${limit}&skip=${currentPage*limit}&sort=${sort}&order=${order}&search=${search}`)
+      .then(res=>res.json())
+      .then(data=>{
+        setTotalApps(data.totalApps);
+        setApps(data.apps);
+      })
+      .catch(err=>console.log(err))
+    
+    setTotalPages(Math.ceil(totalApps/limit));
+    
+  },[currentPage, totalApps, sort, order, search]);
 
-  const filteredApps = appsData.filter((app) =>
-    app.title.toLowerCase().includes(search.toLowerCase())
-  );
+  const handleSorting = (e) =>{
+    const value = e.target.value;
+    const [getSort, getOrder] = value.split("-");
+    setSort(getSort);
+    setOrder(getOrder);
+  }
+  // const filteredApps = apps.filter((app) =>
+  //   app.title.toLowerCase().includes(search.toLowerCase())
+  // );
   return (
     <div className="max-w-[1440px] mx-auto flex flex-col items-center justify-center p-5 md:p-20 gap-3 md:gap-6">
       <h2 className="text-2xl md:text-5xl font-bold">Our All Applications</h2>
@@ -17,11 +42,11 @@ const Applications = () => {
       </p>
 
       <div className="w-full flex items-center justify-between">
-        <h1 className="flex-1 text-lg md:text-2xl font-bold text-gray-800">
-          {filteredApps.length} Apps Found
+        <h1 className="text-lg md:text-2xl font-bold text-gray-800">
+          {totalApps} Apps Found
         </h1>
 
-        <div className="flex-1 flex justify-end">
+        <div className="min-w-70">
           <label className="input bg-[#F1F5E8] border border-[#D2D2D2] flex items-center gap-2 px-3 py-2 rounded-md">
             <svg
               className="h-5 w-5 opacity-50"
@@ -48,16 +73,56 @@ const Applications = () => {
             />
           </label>
         </div>
+        <div 
+          onChange={handleSorting}
+          className="w-60"
+        >
+          <select className="select bg-[#F1F5E8] border border-[#D2D2D2] flex items-center gap-2 px-3 py-2 rounded-md">
+            <option selected disabled={true}>
+              Sort by <span className="text-xs">R / S / D</span>
+            </option>
+            <option value={"rating-desc"}>Ratings : High - Low</option>
+            <option value={"rating-asc"}>Ratings : Low - High</option>
+            <option value={"size-desc"}>Size : High - Low</option>
+            <option value={"size-asc"}>Size : Low - High</option>
+            <option value={"downloads-desc"}>Downloads : High - Low</option>
+            <option value={"downloads-asc"}>Downloads : Low - High</option>
+          </select>
+        </div>
       </div>
 
-      {filteredApps.length > 0 ? (
+      {apps.length > 0 ? (
+        <>
         <div className="w-full grid grid-cols-2 md:grid-cols-4 gap-2 md:gap-4">
           <Suspense fallback='<span className="loading loading-ball loading-xl"></span>'>
-            {filteredApps.map((app) => (
+            {apps.map((app) => (
               <AppCard key={app.id} app={app} />
             ))}
           </Suspense>
         </div>
+        <div className="flex col-span-2 flex-wrap gap-2 my-5">
+            {currentPage > 0 && 
+            <button 
+              onClick={()=> setCurrentPage(currentPage-1)}
+              className="btn btn-info"
+            >pre
+            </button>}
+            {[...Array(totalPages).keys()].map((i) => 
+            <button 
+              onClick={() => setCurrentPage(i)}
+              className={`btn ${currentPage==i && 'btn-primary'}`} 
+              key={i}>
+                {i+1}
+            </button>
+            )}
+            {currentPage < totalPages -1 && 
+            <button 
+              onClick={()=> setCurrentPage(currentPage +1)}
+              className="btn btn-info"
+            >pre
+            </button>}
+          </div>
+        </>
       ) : (
         <div className="w-full flex flex-col items-center justify-center gap-3 text-center py-10 text-gray-500 text-xl md:text-4xl font-bold">
           No App Found

@@ -6,13 +6,11 @@ import { ThemeContext } from '../root/Root';
 // import { ThemeContext } from '../apps/Layout';
 
 const Home = () => {
-  const {appsData} = useContext(ThemeContext)
-  const filtered = appsData.slice(0,8)
     return (
         <div className='max-w-[1600px] min-h-[50vh] mx-auto flex flex-col'>
             <Hero />
             <Review />
-            <Trending appsData={ filtered} />
+            <Trending />
         </div>
     );
 };

@@ -35,13 +35,13 @@ const router = createBrowserRouter([
           {
             path: ':appId',
             loader: async ({ params }) => {
-              let response = await fetch('/allApp.json')
+              let response = await fetch(`http://localhost:5000/apps/${params.appId}`);
               let data = await response.json()
-              const appData = data.find(app => app.id === parseInt(params.appId) )
+              const appData = data._id == params.appId
               if (!appData) {
                 <NotFound/>;
               }
-              return appData
+              return data
             },
             Component: DetailsLayout,
             errorElement: <NotFound />
