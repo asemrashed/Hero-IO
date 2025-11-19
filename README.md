@@ -16,18 +16,22 @@ Backend API (if deployed): *Add your deployed backend link here*
 ## 📦 Tech Stack
 
 ### **Frontend**
-- React (Vite)
-- React Router DOM
-- CSS / custom styles
-- Axios (if used for API calls)
-- ESLint (configured)
+| Technology | Description |
+|------------|-------------|
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="24"> **React (Vite)** | Frontend library and build tool |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" height="24"> **React Router DOM** | Routing and navigation |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="24"> **CSS** | Styling components and layout |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" height="24"> **JavaScript** | Logic and interactivity |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/eslint/eslint-original.svg" height="24"> **ESLint** | Code linting and quality |
 
 ### **Backend**
-- Node.js
-- Express.js
-- MongoDB (with Mongoose)
-- CORS
-- dotenv for environment variables
+| Technology | Description |
+|------------|-------------|
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="24"> **Node.js** | Server-side runtime |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/express/express-original.svg" height="24"> **Express.js** | Backend framework |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/mongodb/mongodb-original.svg" height="24"> **MongoDB (Mongoose)** | Database and ORM |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/npm/npm-original.svg" height="24"> **npm** | Dependency management |
+| <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/dotenv/dotenv-original.svg" height="24"> **dotenv** | Environment variable management |
 
 ---
 
@@ -49,52 +53,6 @@ Backend API (if deployed): *Add your deployed backend link here*
 - Modular routes & controllers
 - Error handling middleware
 - CORS setup for frontend communication
-
----
-
-## 📁 Project Structure
-
-### **Frontend (`/client` or `/`)**
-```
-
-src/
-├── components/        # Reusable UI components
-├── pages/             # Route pages (Home, About, etc.)
-├── App.jsx            # Root component
-├── main.jsx           # Vite entry point
-└── router/            # (optional) custom router setup
-
-```
-
-### **Backend (`/server`)**
-```
-
-server/
-├── models/            # Mongoose schemas
-├── routes/            # Express routes
-├── controllers/       # Business logic
-├── config/            # DB connection, env setup
-├── index.js           # Entry point (Express server)
-└── .env               # Environment variables
-
-````
-
----
-
-## 🧩 API Overview (Backend)
-
-> Add your actual routes here — below is a template you can expand.
-
-### Example Routes
-| Method | Endpoint        | Description           |
-|--------|------------------|-----------------------|
-| GET    | /api/heroes      | Fetch all heroes     |
-| POST   | /api/heroes      | Create new hero      |
-| GET    | /api/heroes/:id  | Get hero by ID       |
-| PUT    | /api/heroes/:id  | Update hero          |
-| DELETE | /api/heroes/:id  | Delete hero          |
-
-If you share your backend files, I can generate this section **automatically**.
 
 ---
 
@@ -186,8 +144,14 @@ MIT — feel free to use, modify, and distribute.
 
 ---
 
-## 📞 Contact
+## 🌐 Connect 
 
-If you have questions or need changes:
-**GitHub:** [https://github.com/asemrashed](https://github.com/asemrashed)
-**Issues:** Open one anytime!
+<p align="left">
+  <a href="https://asemrashed.pages.dev"><img src="https://skillicons.dev/icons?i=htmx" /></a>
+  <a href="https://github.com/asemrashed"><img src="https://skillicons.dev/icons?i=github" /></a>
+  <a href="https://www.linkedin.com/in/asem-rashed-2420a331"><img src="https://skillicons.dev/icons?i=linkedin" /></a>
+  <a href="mailto:asemrashed002@gmail.com"><img src="https://skillicons.dev/icons?i=gmail" /></a>
+</p>
+
+
+Do you want me to do that?
